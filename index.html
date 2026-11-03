@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>free fire แจกตั้งค่า</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        /* แอนิเมชันเปิด-ปิด Modal แบบนุ่มนวล */
+        .modal {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.95);
+        }
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1);
+        }
+        /* แอนิเมชันเมนู Drawer */
+        .drawer {
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(100%);
+        }
+        .drawer.active {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-between selection:bg-neutral-800">
+
+    <!-- ส่วนหัว (Header) -->
+    <header class="flex items-center justify-between px-4 py-3 border-b border-neutral-900 bg-black sticky top-0 z-40">
+        <div class="flex items-center space-x-3">
+            <img src="https://cdn.phototourl.com/member/2026-11-03-21a1805c-34c9-4071-ad8d-c844426b7cf2.jpg" alt="Logo" class="w-9 h-9 rounded-full object-cover border border-neutral-800">
+            <span class="font-semibold text-base tracking-wide">แจกตั้งค่า</span>
+        </div>
+        <button id="menuBtn" class="p-2 text-white focus:outline-none hover:bg-neutral-900 rounded-lg transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round5" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+    </header>
+
+    <!-- เมนูเลื่อนด้านข้าง (Drawer Navigation) -->
+    <div id="drawerOverlay" class="fixed inset-0 bg-black/60 z-50 hidden transition-opacity"></div>
+    <aside id="drawer" class="fixed top-0 right-0 w-72 h-full bg-neutral-950 border-l border-neutral-900 z-50 drawer flex flex-col shadow-2xl">
+        <div class="p-4 border-b border-neutral-900 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <img src="https://cdn.phototourl.com/member/2026-11-03-21a1805c-34c9-4071-ad8d-c844426b7cf2.jpg" alt="Logo" class="w-8 h-8 rounded-full object-cover">
+                <span class="font-semibold text-sm">แจกตั้งค่า 2026</span>
+            </div>
+            <button id="closeDrawer" class="text-neutral-400 hover:text-white p-1">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <nav class="flex-1 p-4 space-y-2">
+            <button onclick="switchTab('home')" class="w-full text-left px-4 py-3 rounded-xl hover:bg-neutral-900 text-sm font-medium transition-colors flex items-center space-x-3">
+                <span>หน้าหลัก</span>
+            </button>
+            <button onclick="switchTab('info')" class="w-full text-left px-4 py-3 rounded-xl hover:bg-neutral-900 text-sm font-medium transition-colors flex items-center space-x-3">
+                <span>ข้อมูล</span>
+            </button>
+            <button onclick="switchTab('updates')" class="w-full text-left px-4 py-3 rounded-xl hover:bg-neutral-900 text-sm font-medium transition-colors flex items-center space-x-3">
+                <span>อัพเดทเว็บไซต์</span>
+            </button>
+        </nav>
+    </aside>
+
+    <!-- เนื้อหาหลัก (Main Content) -->
+    <main class="flex-1 p-4 max-w-md mx-auto w-full flex flex-col justify-center">
+        
+        <!-- หน้าหลัก (Home) -->
+        <div id="tab-home" class="space-y-6">
+            <div class="text-sm text-neutral-400">&lt;-- หน้าหลัก</div>
+            
+            <!-- กล่องแสดงรูป -->
+            <div class="bg-neutral-950 border border-neutral-800 rounded-2xl p-8 flex flex-col items-center justify-center space-y-4 shadow-inner min-h-[260px]">
+                <div class="w-16 h-16 rounded-full bg-neutral-900 flex items-center justify-center text-neutral-500">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                </div>
+                <span class="text-neutral-400 text-sm font-medium">รอรูป</span>
+            </div>
+
+            <!-- ปุ่มรับตั้งค่า -->
+            <button id="openModalBtn" class="w-full bg-white text-black font-semibold py-3.5 rounded-2xl hover:bg-neutral-200 active:scale-[0.98] transition-all shadow-lg">
+                รับตั้งค่า
+            </button>
+        </div>
+
+        <!-- หน้าข้อมูล (Info) -->
+        <div id="tab-info" class="space-y-4 hidden">
+            <div class="text-sm text-neutral-400">&lt;-- ข้อมูล</div>
+            <h2 class="text-lg font-bold">คำอธิบายเกี่ยวกับตั้งค่าและฟีฟาย</h2>
+            <div class="bg-neutral-950 border border-neutral-900 p-4 rounded-xl text-xs text-neutral-300 space-y-1.5 leading-relaxed font-mono">
+                <p>1. ตั้งค่าความไว Free Fire แนะนำให้ปรับแต่งตามความถนัดของหน้าจออุปกรณ์มือถือ</p>
+                <p>2. การตั้งค่า General ช่วยให้การลากหัวคมและแม่นยำขึ้นในโหมดจัดอันดับ</p>
+                <p>3. Red Dot ช่วยในการเล็งเป้าหมายระยะประชิดขณะกดยิงศัตรู</p>
+                <p>4. 2X Scope เหมาะสำหรับการสู้ระยะกลางด้วยปืนไรเฟิลจู่โจม AR</p>
+                <p>5. 4X Scope ช่วยเพิ่มความนิ่งเมื่อใช้สโคปซูมยิงไกล</p>
+                <p>6. AWM Scope ออกแบบมาเพื่อความแม่นยำสูงสุดของสไนเปอร์</p>
+                <p>7. Free Look ช่วยให้หันมองรอบตัวได้อย่างรวดเร็วโดยไม่ต้องเปลี่ยนทิศทางวิ่ง</p>
+                <p>8. DPI ของหน้าจอมีผลอย่างมากต่อความเร็วในการตอบสนองของการสัมผัส</p>
+                <p>9. ขนาดปุ่มยิงที่เหมาะสมช่วยลดอาการยิงวืดและเพิ่มความเร็วในการตั้งไอซ์วอลล์</p>
+                <p>10. ตำแหน่งปุ่มวิ่งและกระโดดควรวางไว้ในจุดที่นิ้วโป้งเอื้อมถึงง่ายที่สุด</p>
+                <p>11. การฝึกซ้อมในโหมดฝึกซ้อมประจำวันจะช่วยให้จดจำความไวใหม่ได้เร็วขึ้น</p>
+                <p>12. หลีกเลี่ยงการเปลี่ยนค่าความไวบ่อยเกินไปเพราะจะทำให้กล้ามเนื้อจำสับสน</p>
+                <p>13. ทำความสะอาดหน้าจอมือถืออยู่เสมอเพื่อป้องกันปัญหาทัชสกรีนสะดุด</p>
+                <p>14. ปิดแอปพลิเคชันเบื้องหลังทั้งหมดก่อนเริ่มเล่นเกมเพื่อลดอาการหน่วง</p>
+                <p>15. ตรวจสอบการเชื่อมต่ออินเทอร์เน็ตให้เสถียรเพื่อป้องกันค่าปิงกระโดด</p>
+                <p>16. ปรับกราฟิกในเกมให้อยู่ในระดับที่เครื่องรองรับเพื่อความลื่นไหลสูงสุด</p>
+                <p>17. การใช้ปลอกนิ้วเกมมิ่งช่วยลดความฝืดของเหงื่อและเพิ่มความลื่นในการปัดหน้าจอ</p>
+                <p>18. ขอให้ทุกคนสนุกและเพลิดเพลินกับการใช้ชุดตั้งค่านี้ในการไต่อันดับแรงค์!</p>
+            </div>
+        </div>
+
+        <!-- หน้าอัพเดทเว็บไซต์ (Updates) -->
+        <div id="tab-updates" class="space-y-4 hidden">
+            <div class="text-sm text-neutral-400">&lt;-- อัพเดทเว็บไซต์</div>
+            <div class="bg-neutral-950 border border-neutral-900 p-5 rounded-2xl space-y-3">
+                <div class="inline-block bg-neutral-900 text-white text-xs px-2.5 py-1 rounded-full font-mono">V1.0.0</div>
+                <div class="space-y-2 text-sm text-neutral-300">
+                    <p><strong class="text-white">สิ่งที่มาเพิ่ม:</strong> ทดลอง</p>
+                    <p><strong class="text-white">แก้ไข:</strong> ทดลอง</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- หน้าต่างทับเต็มหน้าจอ (Full-screen Modal Overlay) -->
+    <div id="settingsModal" class="fixed inset-0 bg-black z-50 modal flex flex-col justify-between p-6">
+        <div class="space-y-6 max-w-md mx-auto w-full pt-4">
+            <div class="flex items-center justify-between border-b border-neutral-900 pb-4">
+                <h3 class="text-lg font-bold">สถานะตั้งค่า</h3>
+                <button id="closeModalBtn" class="bg-neutral-900 hover:bg-neutral-800 text-white px-4 py-1.5 rounded-xl text-sm font-medium transition-colors">
+                    ปิด
+                </button>
+            </div>
+            
+            <div class="space-y-4 text-neutral-300">
+                <div class="bg-neutral-950 border border-neutral-900 p-4 rounded-xl flex justify-between items-center">
+                    <span class="text-neutral-400">รูป:</span>
+                    <span class="font-mono text-white">รอ</span>
+                </div>
+                <div class="bg-neutral-950 border border-neutral-900 p-4 rounded-xl flex justify-between items-center">
+                    <span class="text-neutral-400">DPI:</span>
+                    <span class="font-mono text-white">รอ</span>
+                </div>
+                <div class="bg-neutral-950 border border-neutral-900 p-4 rounded-xl flex justify-between items-center">
+                    <span class="text-neutral-400">ปุ่มรอ:</span>
+                    <span class="font-mono text-white">รอ</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-md mx-auto w-full pb-4">
+            <button id="closeModalBtnBottom" class="w-full bg-neutral-900 hover:bg-neutral-800 text-white font-semibold py-3.5 rounded-2xl transition-colors">
+                ปิด
+            </button>
+        </div>
+    </div>
+
+    <!-- ส่วนท้าย (Footer) -->
+    <footer class="py-4 text-center text-xs text-neutral-500 border-t border-neutral-900">
+        @2026 free fire แจกตั้งค่า | Creator: playpro100
+    </footer>
+
+    <!-- จาวาสคริปต์ควบคุมการทำงาน -->
+    <script>
+        const menuBtn = document.getElementById('menuBtn');
+        const closeDrawer = document.getElementById('closeDrawer');
+        const drawer = document.getElementById('drawer');
+        const drawerOverlay = document.getElementById('drawerOverlay');
+
+        function toggleDrawer() {
+            drawer.classList.toggle('active');
+            drawerOverlay.classList.toggle('hidden');
+        }
+
+        menuBtn.addEventListener('click', toggleDrawer);
+        closeDrawer.addEventListener('click', toggleDrawer);
+        drawerOverlay.addEventListener('click', toggleDrawer);
+
+        function switchTab(tabName) {
+            document.getElementById('tab-home').classList.add('hidden');
+            document.getElementById('tab-info').classList.add('hidden');
+            document.getElementById('tab-updates').classList.add('hidden');
+            
+            document.getElementById('tab-' + tabName).classList.remove('hidden');
+            toggleDrawer();
+        }
+
+        // จัดการ Modal
+        const modal = document.getElementById('settingsModal');
+        const openModalBtn = document.getElementById('openModalBtn');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const closeModalBtnBottom = document.getElementById('closeModalBtnBottom');
+
+        openModalBtn.addEventListener('click', () => {
+            modal.classList.add('active');
+        });
+
+        function closeModal() {
+            modal.classList.remove('active');
+        }
+
+        closeModalBtn.addEventListener('click', closeModal);
+        closeModalBtnBottom.addEventListener('click', closeModal);
+    </script>
+</body>
+</html>
