@@ -45,7 +45,7 @@
         </div>
         <button id="menuBtn" class="p-2 text-white focus:outline-none hover:bg-neutral-900 rounded-lg transition-colors">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round5" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
         </button>
     </header>
@@ -78,26 +78,36 @@
     </aside>
 
     <!-- เนื้อหาหลัก (Main Content) -->
-    <main class="flex-1 p-4 max-w-md mx-auto w-full flex flex-col justify-center">
+    <main class="flex-1 p-4 max-w-4xl mx-auto w-full flex flex-col justify-start">
         
         <!-- หน้าหลัก (Home) -->
-        <div id="tab-home" class="space-y-6">
+        <div id="tab-home" class="space-y-4">
             <div class="text-sm text-neutral-400">&lt;-- หน้าหลัก</div>
             
-            <!-- กล่องแสดงรูป -->
-            <div class="bg-neutral-950 border border-neutral-800 rounded-2xl p-8 flex flex-col items-center justify-center space-y-4 shadow-inner min-h-[260px]">
-                <div class="w-16 h-16 rounded-full bg-neutral-900 flex items-center justify-center text-neutral-500">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                    </svg>
+            <!-- ตารางสินค้าแบบ 2 คอลัมน์ (ซ้าย - ขวา) -->
+            <div class="grid grid-cols-2 gap-4">
+                
+                <!-- สินค้าชิ้นที่ 1 (ซ้าย) -->
+                <div class="bg-neutral-950 border border-neutral-800 rounded-2xl p-3 flex flex-col justify-between space-y-3">
+                    <div class="w-full aspect-square bg-neutral-900 rounded-xl overflow-hidden border border-neutral-800">
+                        <img src="https://cdn.phototourl.com/member/2026-11-03-21a1805c-34c9-4071-ad8d-c844426b7cf2.jpg" alt="สินค้า 1" class="w-full h-full object-cover">
+                    </div>
+                    <button onclick="openModal('1')" class="w-full bg-white text-black text-sm font-semibold py-2.5 rounded-xl hover:bg-neutral-200 active:scale-[0.98] transition-all">
+                        รับตั้งค่า
+                    </button>
                 </div>
-                <span class="text-neutral-400 text-sm font-medium">รอรูป</span>
-            </div>
 
-            <!-- ปุ่มรับตั้งค่า -->
-            <button id="openModalBtn" class="w-full bg-white text-black font-semibold py-3.5 rounded-2xl hover:bg-neutral-200 active:scale-[0.98] transition-all shadow-lg">
-                รับตั้งค่า
-            </button>
+                <!-- สินค้าชิ้นที่ 2 (ขวา) -->
+                <div class="bg-neutral-950 border border-neutral-800 rounded-2xl p-3 flex flex-col justify-between space-y-3">
+                    <div class="w-full aspect-square bg-neutral-900 rounded-xl overflow-hidden border border-neutral-800">
+                        <img src="https://cdn.phototourl.com/member/2026-11-03-21a1805c-34c9-4071-ad8d-c844426b7cf2.jpg" alt="สินค้า 2" class="w-full h-full object-cover">
+                    </div>
+                    <button onclick="openModal('2')" class="w-full bg-white text-black text-sm font-semibold py-2.5 rounded-xl hover:bg-neutral-200 active:scale-[0.98] transition-all">
+                        รับตั้งค่า
+                    </button>
+                </div>
+
+            </div>
         </div>
 
         <!-- หน้าข้อมูล (Info) -->
@@ -141,7 +151,7 @@
     </main>
 
     <!-- หน้าต่างทับเต็มหน้าจอ (Full-screen Modal Overlay) -->
-    <div id="settingsModal" class="fixed inset-0 bg-black z-50 modal flex flex-col justify-between p-6">
+    <div id="settingsModal" class="fixed inset-0 bg-black z-50 modal flex flex-col justify-between p-6 overflow-y-auto">
         <div class="space-y-6 max-w-md mx-auto w-full pt-4">
             <div class="flex items-center justify-between border-b border-neutral-900 pb-4">
                 <h3 class="text-lg font-bold">สถานะตั้งค่า</h3>
@@ -150,23 +160,32 @@
                 </button>
             </div>
             
+            <!-- ส่วนแสดงผลลำดับข้อมูลสินค้า -->
             <div class="space-y-4 text-neutral-300">
+                <!-- 1. รูป -->
+                <div class="bg-neutral-950 border border-neutral-900 p-4 rounded-xl flex flex-col items-center space-y-2">
+                    <span class="text-neutral-400 self-start text-sm">รูป:</span>
+                    <img id="modalImg" src="https://cdn.phototourl.com/member/2026-11-03-21a1805c-34c9-4071-ad8d-c844426b7cf2.jpg" alt="Setting Preview" class="w-full h-48 object-cover rounded-lg border border-neutral-800">
+                </div>
+
+                <!-- 2. เส้นแบ่ง ============ -->
+                <div class="border-b-2 border-dashed border-neutral-800 my-2"></div>
+
+                <!-- 3. ปุ่ม: รอ -->
                 <div class="bg-neutral-950 border border-neutral-900 p-4 rounded-xl flex justify-between items-center">
-                    <span class="text-neutral-400">รูป:</span>
+                    <span class="text-neutral-400">ปุ่ม:</span>
                     <span class="font-mono text-white">รอ</span>
                 </div>
+
+                <!-- 4. DPI: รอ -->
                 <div class="bg-neutral-950 border border-neutral-900 p-4 rounded-xl flex justify-between items-center">
                     <span class="text-neutral-400">DPI:</span>
-                    <span class="font-mono text-white">รอ</span>
-                </div>
-                <div class="bg-neutral-950 border border-neutral-900 p-4 rounded-xl flex justify-between items-center">
-                    <span class="text-neutral-400">ปุ่มรอ:</span>
                     <span class="font-mono text-white">รอ</span>
                 </div>
             </div>
         </div>
 
-        <div class="max-w-md mx-auto w-full pb-4">
+        <div class="max-w-md mx-auto w-full pb-4 pt-4">
             <button id="closeModalBtnBottom" class="w-full bg-neutral-900 hover:bg-neutral-800 text-white font-semibold py-3.5 rounded-2xl transition-colors">
                 ปิด
             </button>
@@ -205,13 +224,12 @@
 
         // จัดการ Modal
         const modal = document.getElementById('settingsModal');
-        const openModalBtn = document.getElementById('openModalBtn');
         const closeModalBtn = document.getElementById('closeModalBtn');
         const closeModalBtnBottom = document.getElementById('closeModalBtnBottom');
 
-        openModalBtn.addEventListener('click', () => {
+        function openModal(id) {
             modal.classList.add('active');
-        });
+        }
 
         function closeModal() {
             modal.classList.remove('active');
